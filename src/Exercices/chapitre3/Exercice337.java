@@ -1,18 +1,10 @@
-package Exercices;
+package Exercices.chapitre3;
 import utils.*;
 
 public class Exercice337 {
 
-  private Coordinate A;
-  private Coordinate B;
-  private Coordinate C;
-  private Coordinate D;
-  private Vector BA;
-  private Vector CA;
-  private Vector DA;
-  private Vector unitVectorBA;
-  private Vector unitVectorCA;
-  private Vector unitVectorDA;
+  private Coordinate A, B, C, D;
+  private Vector3D BA, CA, DA, unitVectorBA, unitVectorCA, unitVectorDA;
 
   public Exercice337() {
 
@@ -52,9 +44,9 @@ public class Exercice337 {
     System.out.println("CA = " + unitVectorCA.norm());
 
     System.out.println("========== Angle entre les vecteurs BA et CA ==========");
-    System.out.println(unitVectorBA.angleBetweenVectors(unitVectorCA));
+    System.out.println(unitVectorBA.angleBetween(unitVectorCA));
 
     System.out.println("========== Angle entre les vecteurs CA et DA ==========");
-    System.out.println(unitVectorCA.angleBetweenVectors(unitVectorDA));
+    System.out.println(unitVectorCA.angleBetween(unitVectorDA));
   }
 }

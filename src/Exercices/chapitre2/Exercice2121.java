@@ -1,22 +1,11 @@
-package Exercices;
+package Exercices.chapitre2;
 
 import utils.*;
 
 public class Exercice2121 {
 
-  private Coordinate A;
-  private Coordinate B;
-  private Coordinate C;
-  private Coordinate D;
-  private Coordinate E;
-  private Vector AB;
-  private Vector AC;
-  private Vector AD;
-  private Vector AE;
-  private Vector unitVectorAB;
-  private Vector unitVectorAC;
-  private Vector unitVectorAD;
-  private Vector unitVectorAE;
+  private Coordinate A, B, C, D, E;
+  private Vector3D AB, AC, AD, AE, unitVectorAB, unitVectorAC, unitVectorAD, unitVectorAE;
 
   public Exercice2121() {
 

@@ -1,17 +1,11 @@
-package Exercices;
+package Exercices.chapitre3;
 
 import utils.*;
 
 public class Exercice324 {
 
-  private Coordinate A;
-  private Coordinate B;
-  private Coordinate C;
-  private Vector BA;
-  private Vector r_CB;
-  private Vector unitVectorBA;
-  private Vector unitVector_r_CB;
-  private Vector forceVector_F_BA;
+  private Coordinate A, B, C;
+  private Vector3D BA, r_CB, unitVectorBA, unitVector_r_CB, forceVector_F_BA;
 
   public Exercice324() {
 
@@ -41,7 +35,7 @@ public class Exercice324 {
     System.out.println("r_CB = " + unitVector_r_CB);
 
     System.out.println("========== Vecteurs force ==========");
-    Vector forceVector_F_BA = unitVectorBA.multiplyComponents(228);
+    Vector3D forceVector_F_BA = unitVectorBA.multiplyComponents(228);
     System.out.println("F_BA = " + forceVector_F_BA);
   }
 }

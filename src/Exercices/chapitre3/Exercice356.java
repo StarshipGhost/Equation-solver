@@ -1,11 +1,11 @@
-package Exercices;
+package Exercices.chapitre3;
 
 import utils.*;
 
 public class Exercice356 {
 
   private Coordinate A, B, C, D, E, F;
-  private Vector AE, CF, DB, r, unitVectorAE, unitVectorCF, unitVectorDB, forceVectorAE, forceVectorCF;
+  private Vector3D AE, CF, DB, r, unitVectorAE, unitVectorCF, unitVectorDB, forceVectorAE, forceVectorCF;
   private Matrix M_AD, T_X, T_Y, T_Z;
 
   public Exercice356() {
@@ -33,7 +33,7 @@ public class Exercice356 {
     this.T_X = new Matrix(new double[][]{{unitVectorAE.x(), -forceVectorCF.x()}});
     this.T_Y = new Matrix(new double[][]{{unitVectorAE.y(), -forceVectorCF.y()}});
     this.T_Z = new Matrix(new double[][]{{unitVectorAE.z(), -forceVectorCF.z()}});
-    this.forceVectorAE = new Vector(unitVectorAE.x() * T_X.solve().get("X1"), unitVectorAE.y() * T_Y.solve().get("X1"), unitVectorAE.z() * T_Z.solve().get("X1"));
+    this.forceVectorAE = new Vector3D(unitVectorAE.x() * T_X.solve().get("X1"), unitVectorAE.y() * T_Y.solve().get("X1"), unitVectorAE.z() * T_Z.solve().get("X1"));
 
     System.out.println("========== Exercice 3.56 ==========");
     System.out.println("========== Coordonnées ==========");

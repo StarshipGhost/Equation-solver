@@ -1,21 +1,10 @@
-package Exercices;
+package Exercices.chapitre2;
 import utils.*;
 public class Exercice2112 {
 
   private final double T_CA = 590;
-  private Coordinate A;
-  private Coordinate B;
-  private Coordinate C;
-  private Coordinate D;
-  private Coordinate O;
-  private Vector BA;
-  private Vector CA;
-  private Vector DA;
-  private Vector AO;
-  private Vector unitVectorBA;
-  private Vector unitVectorCA;
-  private Vector unitVectorDA;
-  private Vector unitVectorAO;
+  private Coordinate A, B, C, D, O;
+  private Vector3D BA, CA, DA, AO, unitVectorBA, unitVectorCA, unitVectorDA, unitVectorAO;
   private Matrix T;
 
   public Exercice2112() {

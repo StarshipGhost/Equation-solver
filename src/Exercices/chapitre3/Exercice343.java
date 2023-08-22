@@ -1,12 +1,12 @@
-package Exercices;
+package Exercices.chapitre3;
 import utils.*;
 
 public class Exercice343 {
 
   private final double NORM_OP = 0.12;
   private Coordinate A, B, C, P, O;
-  private Vector BC, OA, OP, PC;
-  private Vector unitVectorBC, unitVectorOA, unitVectorOP, unitVectorPC;
+  private Vector3D BC, OA, OP, PC;
+  private Vector3D unitVectorBC, unitVectorOA, unitVectorOP, unitVectorPC;
 
   public Exercice343() {
 
@@ -17,7 +17,7 @@ public class Exercice343 {
 
     this.BC = C.subtract(B);
     this.OA = A.subtract(O);
-    this.OP = new Vector((OA.x() * NORM_OP) / OA.norm(), (OA.y() * NORM_OP) / OA.norm(), (OA.z() * NORM_OP) / OA.norm());
+    this.OP = new Vector3D((OA.x() * NORM_OP) / OA.norm(), (OA.y() * NORM_OP) / OA.norm(), (OA.z() * NORM_OP) / OA.norm());
     this.P = new Coordinate(OP.x(), OP.y(), OP.z());
     this.PC = C.subtract(P);
     this.unitVectorBC = BC.unitVector();
@@ -53,7 +53,7 @@ public class Exercice343 {
     System.out.println("CP = " + PC.norm());
 
     System.out.println("========== Angle entre les PC et OP ==========");
-    System.out.println(unitVectorPC.angleBetweenVectors(unitVectorOP));
+    System.out.println(unitVectorPC.angleBetween(unitVectorOP));
 
     System.out.println("========== Projection du vecteur PC sur l'axe OA ==========");
     System.out.println(unitVectorOA.scalarProduct(unitVectorPC.multiplyComponents(30)) + " N");

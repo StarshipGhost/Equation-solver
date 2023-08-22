@@ -1,13 +1,13 @@
-package Exercices;
+package Exercices.chapitre3;
 
 import utils.*;
 
 public class Exercice341 {
 
   private Coordinate A, B, C, D;
-  private Vector BA, BC, BD;
-  private Vector unitVectorBA, unitVectorBC, unitVectorBD;
-  private Vector forceVectorF_BA, forceVectorF_BD, forceVectorF_BC;
+  private Vector3D BA, BC, BD;
+  private Vector3D unitVectorBA, unitVectorBC, unitVectorBD;
+  private Vector3D forceVectorF_BA, forceVectorF_BD, forceVectorF_BC;
   private Matrix T, T1;
 
   public Exercice341() {
@@ -23,14 +23,7 @@ public class Exercice341 {
     this.unitVectorBC = BD.unitVector();
     this.unitVectorBD = BC.unitVector();
     this.forceVectorF_BA = unitVectorBA.multiplyComponents(540);
-    this.T = new Matrix(new double[][]{{unitVectorBC.x(), unitVectorBD.x(), -forceVectorF_BA.x()},
-                                       {unitVectorBC.y(), unitVectorBD.y(), -forceVectorF_BA.y()}});
-
-    this.T1 = new Matrix(new double[][]{{unitVectorBC.y(), unitVectorBD.y(), -forceVectorF_BA.y()},
-                                        {unitVectorBC.z(), unitVectorBD.z(), -forceVectorF_BA.z()}});
-
-    this.forceVectorF_BC = new Vector(unitVectorBC.x() * T.solve().get("X2"), unitVectorBC.y() * T.solve().get("X2"), unitVectorBC.z() * T1.solve().get("X2"));
-    this.forceVectorF_BD = new Vector(unitVectorBD.x() * T.solve().get("X1"), unitVectorBD.y() * T.solve().get("X1"), unitVectorBD.z() * T1.solve().get("X1"));
+    this.forceVectorF_BC = unitVectorBC.multiplyComponents(490);
 
 //    this.forceVectorF_BC = unitVectorBC.multiplyComponents(T.solve().get("X2"));
 //    this.forceVectorF_BD = unitVectorBD.multiplyComponents(T.solve().get("X1"));
@@ -59,16 +52,18 @@ public class Exercice341 {
 
     System.out.println("========== Vecteurs force ==========");
     System.out.println("F_BA = " + forceVectorF_BA);
-    System.out.println("F_BC = " + forceVectorF_BC);
-    System.out.println("F_BD = " + forceVectorF_BD);
+
+    System.out.println("========== Angle entre les vecteur AB et BD ==========");
+    System.out.println(unitVectorBA.angleBetween(unitVectorBD));
+
+    System.out.println("========== Projection sur le piquet de AB à B ==========");
     System.out.println(forceVectorF_BA.scalarProduct(unitVectorBD));
 
-    //T.solve();
+    System.out.println("========== Angle entre les vecteur BC et BD ==========");
+    System.out.println(unitVectorBD.angleBetween(unitVectorBC));
 
-
-    //   System.out.println("========== Système d'équations ==========");
-    System.out.println(unitVectorBA.angleBetweenVectors(unitVectorBD));
-
+    System.out.println("========== Projection sur le piquet de BC à B ==========");
+    System.out.println(forceVectorF_BC.scalarProduct(unitVectorBD));
 
   }
 }

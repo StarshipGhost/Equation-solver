@@ -1,10 +1,10 @@
-package Exercices;
+package Exercices.chapitre2;
 import utils.*;
 public class Exercice2100 {
 
   private final double T_AC = 444;
   private Coordinate A, B, C, D, O;
-  private Vector AB, AC, AD, OA, unitVectorAB, unitVectorAC, unitVectorAD, unitVectorOA;
+  private Vector3D AB, AC, AD, OA, unitVectorAB, unitVectorAC, unitVectorAD, unitVectorOA;
   private Matrix T;
 
   public Exercice2100() {

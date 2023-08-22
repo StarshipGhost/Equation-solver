@@ -1,6 +1,7 @@
-package Exercices;
+package Exercices.chapitre2;
 
 import utils.*;
+import static utils.Geometry.*;
 
 public class Exercice2114 {
 
@@ -17,11 +18,4 @@ public class Exercice2114 {
     T.solve();
   }
 
-  public static double sin(int x) {
-    return Math.sin(x * (Math.PI / 180));
-  }
-
-  public static double cos(int x) {
-    return Math.cos(x * (Math.PI / 180));
-  }
 }

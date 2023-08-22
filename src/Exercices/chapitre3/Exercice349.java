@@ -1,4 +1,4 @@
-package Exercices;
+package Exercices.chapitre3;
 
 import utils.*;
 
@@ -6,9 +6,9 @@ public class Exercice349 {
 
   private final double SUM_MOMENT_OF_FORCE = 6400;
   private Coordinate A, C;
-  private Vector AC, DF;
-  private Vector unitVectorAC, unitVectorDF;
-  private Vector forceVectorAC;
+  private Vector3D AC, DF;
+  private Vector3D unitVectorAC, unitVectorDF;
+  private Vector3D forceVectorAC;
   private Matrix a, b;
 
   public Exercice349() {
@@ -16,7 +16,7 @@ public class Exercice349 {
     this.A = new Coordinate(1, 4, 0);
     this.C = new Coordinate(0, 0, 4);
     this.AC = C.subtract(A);
-    this.DF = new Vector(1.5, -5, 4);
+    this.DF = new Vector3D(1.5, -5, 4);
     this.unitVectorDF = DF.unitVector();
     this.unitVectorAC = AC.unitVector();
     this.forceVectorAC = unitVectorAC.multiplyComponents(1100);

@@ -1,18 +1,10 @@
-package Exercices;
+package Exercices.chapitre2;
 import utils.*;
 public class Exercice2107 {
 
   private final double T_AD = 305;
-  private Coordinate A;
-  private Coordinate B;
-  private Coordinate C;
-  private Coordinate D;
-  private Vector AB;
-  private Vector AC;
-  private Vector AD;
-  private Vector unitVectorAB;
-  private Vector unitVectorAC;
-  private Vector unitVectorAD;
+  private Coordinate A, B, C, D;
+  private Vector3D AB, AC, AD, unitVectorAB, unitVectorAC, unitVectorAD;
   private Matrix T;
 
 

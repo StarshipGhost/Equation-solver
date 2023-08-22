@@ -1,18 +1,18 @@
-package Exercices;
+package Exercices.chapitre3;
 
 import utils.*;
 
 public class Exercice335 {
 
-  private Vector P;
-  private Vector Q;
-  private Vector S;
+  private Vector3D P;
+  private Vector3D Q;
+  private Vector3D S;
 
   public Exercice335() {
 
-    this.P = new Vector(4, 3, -2);
-    this.Q = new Vector(-1, 4, -5);
-    this.S = new Vector(1, 4, 3);
+    this.P = new Vector3D(4, 3, -2);
+    this.Q = new Vector3D(-1, 4, -5);
+    this.S = new Vector3D(1, 4, 3);
 
     System.out.println("========== Exercice 3.35 ==========");
 
