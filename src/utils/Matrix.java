@@ -72,9 +72,9 @@ public class Matrix {
 
   public double determinant() {
 
-//    if (!isSquare()) {
-//      throw new IllegalArgumentException();
-//    }
+    if (!isSquare()) {
+      throw new IllegalArgumentException();
+    }
     Matrix T = this.gaussianElimination();
     double determinant = 1;
 
@@ -92,7 +92,6 @@ public class Matrix {
     Matrix L = identite(lines());
     Matrix U = copy();
 
-    U.printMatrix();
     int bound;
     if (lines() > columns()) {
       bound = n;
@@ -116,6 +115,8 @@ public class Matrix {
           }
         }
       }
+      System.out.println("-----------------");
+      U.printMatrix();
     }
     return U;
   }
@@ -136,7 +137,7 @@ public class Matrix {
         subtitutionResult += equation[j] * equationSystem.get(i, j);
       }
       equation[i] = (equation[i] - subtitutionResult) / equationSystem.get(i, i);
-      equations.put("X" + (n - i - 1), equation[i]);
+      equations.put("X" + (i + 1), equation[i]);
       subtitutionResult = 0;
     }
     System.out.println("------------------------------------------------------------------");
