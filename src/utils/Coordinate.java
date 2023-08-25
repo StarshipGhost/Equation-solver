@@ -1,33 +1,50 @@
 package utils;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.stream.Collectors;
 
 public class Coordinate {
-  private double[] c;
+  private double[] coordinates;
 
-  public Coordinate(double x, double y, double z) {
-    this.c = new double[]{x, y, z};
+  public Coordinate(double... c) {
+    this.coordinates = c;
   }
 
-  public Vector3D subtract(Coordinate c) {
+  public Vector3D subtractVector3D(Coordinate c) {
     return new Vector3D(this.x() - c.x(), this.y() - c.y(), this.z() - c.z());
   }
 
+  public Vector2D subtractVector2D(Coordinate c) {
+    return new Vector2D(this.x() - c.x(), this.y() - c.y());
+  }
+
+  public Vector subtractVector(Coordinate c) {
+    double[] a = new double[this.coordinates.length];
+    for (int i = 0; i < this.coordinates.length; i++) {
+      a[i] = this.get(i) - c.get(i);
+    }
+    return new Vector(a);
+  }
+
   public double x() {
-    return this.c[0];
+    return get(0);
   }
 
   public double y() {
-    return this.c[1];
+    return get(1);
   }
 
   public double z() {
-    return this.c[2];
+    return get(2);
   }
-  public String toString() {
 
-    return "( " + this.c[0] + ", " + this.c[1] + ", " + this.c[2] + " )";
+  public double get(int i) {
+    return get(i);
+  }
+
+  public String toString() {
+    return Arrays.stream(coordinates)
+        .mapToObj(c -> String.format("%f", c))
+        .collect(Collectors.joining(", ", "(", ")"));
   }
 }
