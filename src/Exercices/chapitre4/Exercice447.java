@@ -6,9 +6,13 @@ import utils.*;
 
 public class Exercice447 {
 
-  Coordinate A, B, C, D, E;
-  Vector2D r_CA, r_CB, r_CD, r_CE, M_C;
-  Vector2D F1, F2, F_DB;
+  private final double T = 1300;
+  private final double Rx = 0;
+  private final double Ry = 0;
+  private Coordinate A, B, C, D, E;
+  private Vector2D r_CA, r_CB, r_CE;
+  private Vector2D F1, F2, BD, reaction_C;
+  private Vector3D M_CE, M_CA, M_CB;
 
   public Exercice447() {
 
@@ -26,37 +30,43 @@ public class Exercice447 {
     System.out.println("D = " + D);
     System.out.println("E = " + E);
 
+    this.BD = D.subtract2DCoordinate(B);
     this.r_CA = A.subtract2DCoordinate(C);
     this.r_CB = B.subtract2DCoordinate(C);
-    this.r_CD = D.subtract2DCoordinate(C);
     this.r_CE = E.subtract2DCoordinate(C);
 
     System.out.println("========== Vecteurs ==========");
     System.out.println("r_CA = " + r_CA);
     System.out.println("r_CB = " + r_CB);
-    System.out.println("r_CD = " + r_CD);
     System.out.println("r_CE = " + r_CE);
 
-    double angle = Math.toDegrees(Math.atan(250.0 / 600.0));
+    BD.unitVector();
+    BD.multiplyComponents(T);
+
     this.F1 = new Vector2D(0, -750);
     this.F2 = new Vector2D(-450, 0);
-    this.F_DB = new Vector2D(-1300 * sin(angle), 1300 * cos(angle));
 
-    double M_CA = F1.y() * r_CA.x();
-    double M_CE = F2.x() * r_CE.y();
-    double M_CBx = F_DB.x() * r_CB.y();
-    double M_CBy = F_DB.y() * r_CB.x();
+    this.M_CA = r_CA.crossProduct(F1);
+    this.M_CE = r_CE.crossProduct(F2);
+    this.M_CB = r_CB.crossProduct(BD);
 
     System.out.println("========== Moments de force au point C ==========");
     System.out.println("M_CA = " + M_CA);
     System.out.println("M_CE = " + M_CE);
-    System.out.println("M_CBx = " + M_CBx);
-    System.out.println("M_CBy = " + M_CBy);
+    System.out.println("M_CB = " + M_CB);
 
-    this.M_C = new Vector2D(0 - M_CA - M_CBx, 0 - M_CE - M_CBy);
+    double M_C = M_CA.z() + M_CB.z() + M_CE.z();
+    double Cx = Rx - F1.x() - F2.x() - BD.x();
+    double Cy = Ry - F1.y() - F2.y() - BD.y();
+
+    this.reaction_C = new Vector2D(Cx, Cy);
 
     System.out.println("========== Somme des Moments de force au point C ==========");
     System.out.println("M_C = " + M_C);
-    System.out.println("M_C = " + M_C.norm());
+
+    System.out.println("========== Réaction C ==========");
+    System.out.println("C = " + reaction_C);
+    System.out.println("C = " + reaction_C.norm());
+    System.out.println("Orientation: " + reaction_C.angle());
   }
 }
