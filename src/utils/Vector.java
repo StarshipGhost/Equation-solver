@@ -15,11 +15,11 @@ public class Vector implements Iterable<Double> {
   }
 
   public double norm() {
-    return Math.sqrt(Arrays.stream(components).map(c -> c * c).sum());
+    return Math.sqrt(Arrays.stream(this.components).map(c -> c * c).sum());
   }
 
   public void unitVector() {
-    multiplyComponents(1 / norm());
+    multiplyComponents(1 / this.norm());
   }
 
   public void multiplyComponents(double k) {
@@ -29,12 +29,12 @@ public class Vector implements Iterable<Double> {
   }
 
   public double scalarProduct(Vector Q) {
-    int n = components.length;
-    return IntStream.range(0, n).mapToDouble(i -> components[i] * Q.components[i]).sum();
+    int n = size();
+    return IntStream.range(0, n).mapToDouble(i -> this.components[i] * Q.components[i]).sum();
   }
 
   public double angleBetween(Vector v) {
-    if (this.is2Dimension() || is3Dimension()) {
+    if (this.is2Dimension() || this.is3Dimension()) {
       return Math.toDegrees(Math.acos(this.scalarProduct(v) / this.norm() * v.norm()));
     } else {
       throw new IllegalArgumentException();
@@ -42,12 +42,12 @@ public class Vector implements Iterable<Double> {
   }
 
   public double[] angles() {
-    double norm = norm();
+    double norm = this.norm();
     return Arrays.stream(components).map(c -> Math.toDegrees(Math.acos(c / norm))).toArray();
   }
 
   public double angle() {
-    if (is2Dimension()) {
+    if (this.is2Dimension()) {
       return Math.toDegrees(Math.atan(get(1) / get(0)));
     }
     throw new IllegalArgumentException();
@@ -56,14 +56,6 @@ public class Vector implements Iterable<Double> {
   public double momentOfAForce(double r, double F, double angle) {
     if (this.is2Dimension()) {
       return r * F * sin(angle);
-    } else {
-      throw new IllegalArgumentException();
-    }
-  }
-
-  public double momentOfForce(double r, double F) {
-    if (this.is2Dimension()) {
-      return r * F;
     } else {
       throw new IllegalArgumentException();
     }
@@ -93,7 +85,7 @@ public class Vector implements Iterable<Double> {
   @Override
   public String toString() {
     return Arrays.stream(components)
-        .mapToObj(c -> String.format("%f", c))
+        .mapToObj(c -> String.format("%.4f", c))
         .collect(Collectors.joining(", ", "(", ")"));
   }
 }
