@@ -115,13 +115,13 @@ public class Matrix {
           }
         }
       }
-      System.out.println("-----------------");
-      U.printMatrix();
+//      System.out.println("-----------------");
+//      U.printMatrix();
     }
     return U;
   }
 
-  public Map<String, Double> solve() {
+  public Map<String, Double> solve(String... variables) {
     if (!isSolvable()) {
       throw new IllegalArgumentException();
     }
@@ -137,10 +137,9 @@ public class Matrix {
         subtitutionResult += equation[j] * equationSystem.get(i, j);
       }
       equation[i] = (equation[i] - subtitutionResult) / equationSystem.get(i, i);
-      equations.put("X" + (i + 1), equation[i]);
+      equations.put(variables[i], equation[i]);
       subtitutionResult = 0;
     }
-    System.out.println("------------------------------------------------------------------");
     System.out.println(equations);
 
     return equations;
