@@ -4,8 +4,10 @@ import utils.*;
 
 public class Exercice2121 {
 
-  private Coordinate A, B, C, D, E;
-  private Vector3D AB, AC, AD, AE, unitVectorAB, unitVectorAC, unitVectorAD, unitVectorAE;
+  public final double Wy = -1000;
+  private Coordinate A, B, C, D, E, F;
+  private Vector3D AB, AC, AD, AE, FB, W;
+  private Matrix T1, T2;
 
   public Exercice2121() {
 
@@ -14,14 +16,12 @@ public class Exercice2121 {
     this.C = new Coordinate(0, 0, 1.20);
     this.D = new Coordinate(1.30, 0, 0.40);
     this.E = new Coordinate(-0.40, 0, -0.86);
-    this.AB = B.subtract(A);
-    this.AC = C.subtract(A);
-    this.AD = D.subtract(A);
-    this.AE = E.subtract(A);
-    this.unitVectorAB = AB.unitVector();
-    this.unitVectorAC = AC.unitVector();
-    this.unitVectorAD = AD.unitVector();
-    this.unitVectorAE = AE.unitVector();
+    this.F = new Coordinate(-0.78, -1.60, 0);
+    this.AB = B.subtract3DCoordinate(A);
+    this.AC = C.subtract3DCoordinate(A);
+    this.AD = D.subtract3DCoordinate(A);
+    this.AE = E.subtract3DCoordinate(A);
+    this.FB = B.subtract3DCoordinate(F);
 
     System.out.println("========== Exercices 2.121 ==========");
 
@@ -37,11 +37,38 @@ public class Exercice2121 {
     System.out.println("AC = " + AC);
     System.out.println("AD = " + AD);
     System.out.println("AE = " + AE);
+    System.out.println("FB = " + FB);
+
+    AB.unitVector();
+    AC.unitVector();
+    AD.unitVector();
+    AE.unitVector();
+    FB.unitVector();
+    this.T1 =
+        new Matrix(
+            new double[][] {
+              {AB.x() + AD.x(), AE.x(), AC.x(), 0},
+              {AB.y() + AD.y(), AE.y(), AC.y(), -Wy},
+              {AB.z() + AD.z(), AE.z(), AC.z(), 0}
+            });
+
+    this.T2 =
+        new Matrix(
+            new double[][] {
+              {AB.x() + AD.x(), AE.x(), 0, -AC.x() * 150},
+              {AB.y() + AD.y(), AE.y(), -1, -AC.y() * 150},
+              {AB.z() + AD.z(), AE.z(), 0, -AC.z() * 150}
+            });
 
     System.out.println("========== Vecteurs unitaire ==========");
-    System.out.println("AB = " + unitVectorAB);
-    System.out.println("AC = " + unitVectorAC);
-    System.out.println("AD = " + unitVectorAD);
-    System.out.println("AE = " + unitVectorAE);
+    System.out.println("AB = " + AB);
+    System.out.println("AC = " + AC);
+    System.out.println("AD = " + AD);
+    System.out.println("AE = " + AE);
+    System.out.println("FB = " + FB);
+
+    System.out.println("========== Système d'équation ==========");
+    T1.solve("T_AB=T_AD=P", "T_AE", "T_AC");
+    T2.solve("T_AB=T_AD=P", "T_AE", "W");
   }
 }

@@ -1,7 +1,6 @@
 package Exercices.chapitre3;
 
-import utils.Vector2D;
-import utils.Vector3D;
+import utils.*;
 
 public class Exercice3106 {
 
@@ -12,7 +11,7 @@ public class Exercice3106 {
 
         this.r1 = new Vector2D(0.25, 0.0);
         this.r2 = new Vector2D(r1.x() + 0.85, 0.0);
-        this.r3 = new Vector2D(r1.x() + r2.x() + 0.625, 0.0);
+        this.r3 = new Vector2D(r2.x() + 0.625, 0.0);
 
         this.F1 = new Vector2D(0.0, -16.4);
         this.F2 = new Vector2D(0.0, -16.4);
@@ -24,7 +23,7 @@ public class Exercice3106 {
 
         this.R = new Vector2D(0, F1.y() + F2.y() + F3.y());
         this.M_RDa = new Vector3D(M_R1.x() + M_R2.x() + M_R3.x(), M_R1.y() + M_R2.y() + M_R3.y(), M_R1.z() + M_R2.z() + M_R3.z());
-        this.r_Ra = new Vector2D( R.y() / M_RDa.z(), 0.0);
+        this.r_Ra = new Vector2D( M_RDa.z() / R.y(), 0.0);
 
         System.out.println("========== Exercice 3.106 ==========");
         System.out.println("M_R1 = " + M_R1);

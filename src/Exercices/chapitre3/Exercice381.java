@@ -12,10 +12,12 @@ public class Exercice381 {
     private Vector2D T;
 
     public Exercice381() {
+
+        System.out.println("========== Exercice 3.81 ==========");
         this.T = new Vector2D(NORM_T, 20);
         double M1 = T.momentOfAForce(r_AC, NORM_T, ANGLE_BETWEEN_X_AXIS_AND_T + ANGLE_BETWEEN_X_AXIS_AND_AC);
         double M2 = T.momentOfAForce(r_BC, NORM_T, ANGLE_BETWEEN_X_AXIS_AND_T + ANGLE_BETWEEN_X_AXIS_AND_AC);
-        System.out.printf("Moment of the force about point A = %.0f %n", M1);
-        System.out.printf("Moment of the force about point B = %.0f %n", M2);
+        System.out.printf("Moment de force à partir du point A = %.0f %n", M1);
+        System.out.printf("Moment de force à partir du point B = %.0f %n", M2);
     }
 }

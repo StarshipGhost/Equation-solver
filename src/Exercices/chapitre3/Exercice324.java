@@ -5,21 +5,18 @@ import utils.*;
 public class Exercice324 {
 
   private Coordinate A, B, C;
-  private Vector3D BA, r_CB, unitVectorBA, unitVector_r_CB, forceVector_F_BA;
+  private Vector3D BA, r_CB, M_C;
 
   public Exercice324() {
 
     System.out.println("========== Exercice 3.24 ==========");
 
-    this.A = new Coordinate(960, -120, 720);
-    this.B = new Coordinate(1060, -1800, 1320);
+    double convert = Math.pow(10, -3);
+    this.A = new Coordinate(960 * convert, -120 * convert, 720 * convert);
+    this.B = new Coordinate(1060 * convert, -1920 * convert, 1320 * convert);
     this.C = new Coordinate(0, 0, 0);
-    this.BA = A.subtract(B);
-    this.r_CB = B.subtract(C);
-    this.unitVectorBA = BA.unitVector();
-    this.unitVector_r_CB = r_CB.unitVector();
-    this.forceVector_F_BA = unitVectorBA.multiplyComponents(228);
-
+    this.BA = A.subtract3DCoordinate(B);
+    this.r_CB = B.subtract3DCoordinate(C);
 
     System.out.println("========== Coordonnées ==========");
     System.out.println("A = " + A);
@@ -30,12 +27,21 @@ public class Exercice324 {
     System.out.println("BA = " + BA);
     System.out.println("r_CB = " + r_CB);
 
+    BA.unitVector();
+   // r_CB.unitVector();
+
     System.out.println("========== Vecteurs unitaire ==========");
-    System.out.println("BA = " + unitVectorBA);
-    System.out.println("r_CB = " + unitVector_r_CB);
+    System.out.println("BA = " + BA);
+    System.out.println("r_CB = " + r_CB);
+
+    BA.multiplyComponents(228);
 
     System.out.println("========== Vecteurs force ==========");
-    Vector3D forceVector_F_BA = unitVectorBA.multiplyComponents(228);
-    System.out.println("F_BA = " + forceVector_F_BA);
+    System.out.println("F_BA = " + BA);
+
+    this.M_C = r_CB.crossProduct(BA);
+
+    System.out.println("========== Moment de la force BA au point C ==========");
+    System.out.println(M_C + " N*m");
   }
 }

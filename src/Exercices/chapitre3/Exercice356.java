@@ -5,8 +5,8 @@ import utils.*;
 public class Exercice356 {
 
   private Coordinate A, B, C, D, E, F;
-  private Vector3D AE, CF, DB, r, unitVectorAE, unitVectorCF, unitVectorDB, forceVectorAE, forceVectorCF;
-  private Matrix M_AD, T_X, T_Y, T_Z;
+  private Vector3D AE, CF, DB, r, forceVectorAE;
+  private Matrix M_AD, T, T_X, T_Y, T_Z;
 
   public Exercice356() {
     this.A = new Coordinate(0, 0.6, 0.2);
@@ -16,24 +16,10 @@ public class Exercice356 {
     this.E = new Coordinate(0.9, 0, 0.4);
     this.F = new Coordinate(0.6, 0, -0.6);
 
-    this.AE = E.subtract(A);
-    this.CF = F.subtract(C);
-    this.DB = B.subtract(D);
-    this.r = C.subtract(B);                              //C.substract(D) works too
-
-    this.unitVectorAE = AE.unitVector();
-    this.unitVectorCF = CF.unitVector();
-    this.unitVectorDB = DB.unitVector();
-
-    this.forceVectorCF = unitVectorCF.multiplyComponents(33);
-
-    this.M_AD = new Matrix(new double[][]{{unitVectorDB.x(), unitVectorDB.y(), unitVectorDB.z()},
-            {r.x(), r.y(), r.z()},
-            {forceVectorCF.x(), forceVectorCF.y(), forceVectorCF.z()}});
-    this.T_X = new Matrix(new double[][]{{unitVectorAE.x(), -forceVectorCF.x()}});
-    this.T_Y = new Matrix(new double[][]{{unitVectorAE.y(), -forceVectorCF.y()}});
-    this.T_Z = new Matrix(new double[][]{{unitVectorAE.z(), -forceVectorCF.z()}});
-    this.forceVectorAE = new Vector3D(unitVectorAE.x() * T_X.solve().get("X1"), unitVectorAE.y() * T_Y.solve().get("X1"), unitVectorAE.z() * T_Z.solve().get("X1"));
+    this.AE = E.subtract3DCoordinate(A);
+    this.CF = F.subtract3DCoordinate(C);
+    this.DB = B.subtract3DCoordinate(D);
+    this.r = C.subtract3DCoordinate(B); // C.substract(D) works too
 
     System.out.println("========== Exercice 3.56 ==========");
     System.out.println("========== Coordonnées ==========");
@@ -50,14 +36,42 @@ public class Exercice356 {
     System.out.println("DB = " + DB);
     System.out.println("r = " + r);
 
+    AE.unitVector();
+    CF.unitVector();
+    DB.unitVector();
+
     System.out.println("========== Vecteurs unitaire ==========");
-    System.out.println("AE = " + unitVectorAE);
-    System.out.println("CF = " + unitVectorCF);
-    System.out.println("DB = " + unitVectorDB);
+    System.out.println("AE = " + AE);
+    System.out.println("CF = " + CF);
+    System.out.println("DB = " + DB);
+
+    CF.multiplyComponents(33);
+
+    this.T_X = new Matrix(new double[][] {{AE.x(), -CF.x()}});
+    this.T_Y = new Matrix(new double[][] {{AE.y(), -CF.y()}});
+    this.T_Z = new Matrix(new double[][] {{AE.z(), -CF.z()}});
+
+//    this.T =
+//        new Matrix(
+//            new double[][] {
+//              {AE.x(), 0, 0, -CF.x()}, {0, AE.y(), 0, -CF.y()}, {0, 0, AE.z(), -CF.z()}
+//            });
+
+    this.forceVectorAE =
+        new Vector3D(
+            AE.x() * T_X.solve("T_AE").get("T_AE"),
+            AE.y() * T_Y.solve("T_AE").get("T_AE"),
+            AE.z() * T_Z.solve("T_AE").get("T_AE"));
 
     System.out.println("========== Vecteurs force ==========");
     System.out.println("F_AE = " + forceVectorAE);
-    System.out.println("F_CF = " + forceVectorCF);
+    System.out.println("F_CF = " + CF);
+
+    this.M_AD =
+        new Matrix(
+            new double[][] {
+              {DB.x(), DB.y(), DB.z()}, {r.x(), r.y(), r.z()}, {CF.x(), CF.y(), CF.z()}
+            });
 
     System.out.println("========== Produit mixte ==========");
     System.out.println("d_DB = " + M_AD.determinant());

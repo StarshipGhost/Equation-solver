@@ -4,7 +4,7 @@ public class Exercice2112 {
 
   private final double T_CA = 590;
   private Coordinate A, B, C, D, O;
-  private Vector3D BA, CA, DA, AO, unitVectorBA, unitVectorCA, unitVectorDA, unitVectorAO;
+  private Vector3D BA, CA, DA, AO;
   private Matrix T;
 
   public Exercice2112() {
@@ -15,17 +15,10 @@ public class Exercice2112 {
     this.C = new Coordinate(12, 0, 3.6);
     this.D = new Coordinate(-4, 0, 14.8);
     this.O = new Coordinate(0, 0, 0);
-    this.BA = A.subtract(B);
-    this.CA = A.subtract(C);
-    this.DA = A.subtract(D);
-    this.AO = O.subtract(A);
-    this.unitVectorBA = BA.unitVector();
-    this.unitVectorCA = CA.unitVector();
-    this.unitVectorDA = DA.unitVector();
-    this.unitVectorAO = AO.unitVector();
-    this.T = new Matrix(new double[][]{{unitVectorBA.x(), unitVectorDA.x(), unitVectorAO.x(), -(T_CA * unitVectorCA.x())},
-                                       {unitVectorBA.y(), unitVectorDA.y(), unitVectorAO.y(), -(T_CA * unitVectorCA.y())},
-                                       {unitVectorBA.z(), unitVectorDA.z(), unitVectorAO.z(), -(T_CA * unitVectorCA.z())}});
+    this.BA = A.subtract3DCoordinate(B);
+    this.CA = A.subtract3DCoordinate(C);
+    this.DA = A.subtract3DCoordinate(D);
+    this.AO = O.subtract3DCoordinate(A);
 
     System.out.println("========== Exercice 2.112 ==========");
 
@@ -42,13 +35,21 @@ public class Exercice2112 {
     System.out.println("DA = " + DA);
     System.out.println("AO = " + AO);
 
+    BA.unitVector();
+    CA.unitVector();
+    DA.unitVector();
+    AO.unitVector();
+    this.T = new Matrix(new double[][]{{BA.x(), DA.x(), AO.x(), -(T_CA * CA.x())},
+                                       {BA.y(), DA.y(), AO.y(), -(T_CA * CA.y())},
+                                       {BA.z(), DA.z(), AO.z(), -(T_CA * CA.z())}});
+
     System.out.println("========== Vecteurs unitaire ==========");
-    System.out.println("BA = " + unitVectorBA);
-    System.out.println("CA = " + unitVectorCA);
-    System.out.println("DA = " + unitVectorDA);
-    System.out.println("AO = " + unitVectorAO);
+    System.out.println("BA = " + BA);
+    System.out.println("CA = " + CA);
+    System.out.println("DA = " + DA);
+    System.out.println("AO = " + AO);
 
     System.out.println("========== Système d'équations ==========");
-    T.solve();
+    T.solve("T_AB", "T_DA", "P");
   }
 }
