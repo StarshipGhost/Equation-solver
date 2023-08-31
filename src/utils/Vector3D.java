@@ -2,91 +2,136 @@ package utils;
 
 import static utils.Geometry.*;
 
-public class Vector3D {
-    private double[] v;
-    private double F;
-    private String name;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
 
-    public Vector3D(double i, double j, double k) {
-        this.v = new double[]{i, j, k};
-    }
+public class Vector3D extends Vector {
+  private double F, x, y, z;
 
-    public Vector3D(String name, double F, double YZPlanAngle, double XZPlanAngle) {
-        this.name = name;
-        this.F = F;
-        this.v = new double[]{F_x(YZPlanAngle, XZPlanAngle), F_y(YZPlanAngle), F_z(YZPlanAngle, XZPlanAngle)};
-    }
+  public Vector3D(double x, double y, double z) {
+    super(x, y, z);
+    this.x = x;
+    this.y = y;
+    this.z = z;
+  }
 
-    public double norm() {
-        return Math.sqrt(Math.pow(this.x(), 2) + Math.pow(this.y(), 2) + Math.pow(this.z(), 2));
-    }
+  public Vector3D(
+      double F,
+      double YZPlanAngle,
+      double XZPlanAngle,
+      boolean checkIfYZAngleOpposedFromHComponent,
+      boolean checkIfXZAngleOpposedFromXComponent) {
+    this.F = F;
+    this.x =
+        Fx(
+            YZPlanAngle,
+            XZPlanAngle,
+            checkIfYZAngleOpposedFromHComponent,
+            checkIfXZAngleOpposedFromXComponent);
+    this.y = Fy(YZPlanAngle, checkIfYZAngleOpposedFromHComponent);
+    this.z =
+        Fz(
+            YZPlanAngle,
+            XZPlanAngle,
+            checkIfYZAngleOpposedFromHComponent,
+            checkIfXZAngleOpposedFromXComponent);
+    super.components = new double[] {x, y, z};
+  }
 
-    public Vector3D unitVector() {
-        return new Vector3D(this.x() / norm(), this.y() / norm(), this.z() / norm());
-    }
+  public Vector3D crossProduct(Vector3D Q) {
+//    String format = " %.4f ";
+//    List<String> ops = Arrays.asList("*", "-", "*", "%n");
+//    String[] labels = {"Vx", "Vy", "Vz"};
+//    Double[][] values = {
+//      {this.y(), Q.z(), this.z(), Q.y()},
+//      {this.x(), Q.z(), this.z(), Q.x()},
+//      {this.x(), Q.y(), this.y(), Q.x()}
+//    };
+//
+//    for (int i = 0; i < labels.length; i++) {
+//      String label = String.format("%s =", labels[i]);
+//      String[] opsWithLabel = Stream.concat(Stream.of(label), ops.stream()).toArray(String[]::new);
+//      String line = String.join(format, opsWithLabel);
+//      System.out.printf(line, values[i]);
+//    }
+    // System.out.printf(
+    //         "Vx = " + format + " * " + format + " - " + format + " * " + format + "%n" +
+    //         "Vy = " + format + " * " + format + " - " + format + " * " + format + "%n" +
+    //         "Vz = " + format + " * " + format + " - " + format + " * " + format + "%n",
+    //         this.y(), Q.z(), this.z(), Q.y(), this.z(), Q.x(), this.x(), Q.z(), this.x(), Q.y(),
+    // this.y(), Q.x());
+    return new Vector3D(
+        this.y() * Q.z() - this.z() * Q.y(),
+        -(this.x() * Q.z() - this.z() * Q.x()),
+        this.x() * Q.y() - this.y() * Q.x());
+  }
 
-    public Vector3D multiplyComponents(double n) {
-        return new Vector3D(this.x() * n, this.y() * n, this.z() * n);
-    }
+  public double getForceFromMomentOfForceAboutAnAxis(Vector3D unitVector, Vector3D M, Vector3D r_F) {
+    double x = -unitVector.scalarProduct(M);
+    Vector3D u1 = unitVector.crossProduct(r_F);
+    double y = u1.scalarProduct(this);
+    return x / y;
+  }
 
-    public double scalarProduct(Vector3D Q) {
-        return this.x() * Q.x() + this.y() * Q.y() + this.z() * Q.z();
-    }
+  public double x() {
+    return get(0);
+  }
 
-    public Vector3D crossProduct(Vector3D Q) {
-        return new Vector3D(this.y() * Q.z() - this.z() * Q.y(), this.z() * Q.x() - this.x() * Q.z(), this.x() * Q.y() - this.y() * Q.x());
-    }
+  public double y() {
+    return get(1);
+  }
 
-    public double angleBetween(Vector3D v) {
-        return Math.toDegrees(Math.acos(this.scalarProduct(v) / this.norm() * v.norm()));
-    }
+  public double z() {
+    return get(2);
+  }
 
-    public double x() {
-        return this.v[0];
-    }
+  public boolean isYZAngleOpposedFromHComponent(boolean bool) {
+    return bool;
+  }
 
-    public double y() {
-        return this.v[1];
-    }
+  public boolean isXZAngleOpposedFromXComponent(boolean bool) {
+    return bool;
+  }
 
-    public double z() {
-        return this.v[2];
+  public double Fy(double angle, boolean checkIfYZAngleOpposedFromHComponent) {
+    if (isYZAngleOpposedFromHComponent(checkIfYZAngleOpposedFromHComponent)) {
+      return F * cos(angle);
+    } else {
+      return F * sin(angle);
     }
+  }
 
-    public double F_y(double angleOpposedToBase) {
-        return F * cos(angleOpposedToBase);
+  public double Fh(double angle, boolean checkIfYZAngleOpposedFromHComponent) {
+    if (isYZAngleOpposedFromHComponent(checkIfYZAngleOpposedFromHComponent)) {
+      return F * sin(angle);
+    } else {
+      return F * cos(angle);
     }
+  }
 
-    public double F_h(double angleOpposedToBase) {
-        return F * sin(angleOpposedToBase);
+  public double Fx(
+      double angle1,
+      double angle2,
+      boolean checkIfYZAngleOpposedFromHComponent,
+      boolean checkIfXZAngleOpposedFromXComponent) {
+    if (isXZAngleOpposedFromXComponent(checkIfXZAngleOpposedFromXComponent)) {
+      return Fh(angle1, checkIfYZAngleOpposedFromHComponent) * sin(angle2);
+    } else {
+      return Fh(angle1, checkIfYZAngleOpposedFromHComponent) * cos(angle2);
     }
+  }
 
-    public double F_x(double angleOpposedToBase, double angleOpposedToZAxis) {
-        return F_h(angleOpposedToBase) * cos(angleOpposedToZAxis);
-    }
-    public double F_z(double angleOpposedToBase, double angleOpposedToZAxis) {
-        return F_h(angleOpposedToBase) * sin(angleOpposedToZAxis);
-    }
-    public double XAngle(double F, double F_x) {
-        return Math.toDegrees(Math.acos(F_x / F));
-    }
+  public double Fz(
+      double angle1,
+      double angle2,
+      boolean checkIfYZAngleOpposedFromHComponent,
+      boolean checkIfXZAngleOpposedFromXComponent) {
 
-    public double YAngle(double F, double F_y) {
-        return Math.toDegrees(Math.acos(F_y / F));
+    if (isXZAngleOpposedFromXComponent(checkIfXZAngleOpposedFromXComponent)) {
+      return Fh(angle1, checkIfYZAngleOpposedFromHComponent) * cos(angle2);
+    } else {
+      return Fh(angle1, checkIfYZAngleOpposedFromHComponent) * sin(angle2);
     }
-
-    public double ZAngle(double F, double F_z) {
-        return Math.toDegrees(Math.acos(F_z / F));
-    }
-
-    public double getF() {
-        return F;
-    }
-
-    public String getName() {
-        return name;
-    }
-    public String toString() {
-        return String.format("(%.1f, %.1f, %.1f)", x(), y(), z());
-    }
+  }
 }
