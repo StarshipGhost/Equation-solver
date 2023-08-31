@@ -1,6 +1,5 @@
 package Exercices.chapitre2;
 
-import java.util.Arrays;
 import utils.*;
 
 public class Exercice273 {
