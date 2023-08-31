@@ -46,6 +46,13 @@ public class Vector implements Iterable<Double> {
     return Arrays.stream(components).map(c -> Math.toDegrees(Math.acos(c / norm))).toArray();
   }
 
+  public double angle() {
+    if (is2Dimension()) {
+      return Math.toDegrees(Math.atan(get(1) / get(0)));
+    }
+    throw new IllegalArgumentException();
+  }
+
   public double momentOfAForce(double r, double F, double angle) {
     if (this.is2Dimension()) {
       return r * F * sin(angle);
