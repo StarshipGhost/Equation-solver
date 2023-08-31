@@ -10,15 +10,25 @@ public class Coordinate {
     this.coordinates = c;
   }
 
-  public Vector3D subtractVector3D(Coordinate c) {
+
+  public Coordinate convert(int power) {
+    double[] a = new double[this.coordinates.length];
+
+    for (int i = 0; i < this.coordinates.length; i++) {
+      a[i] = this.get(i) * Math.pow(10, power);
+    }
+    return new Coordinate(a);
+  }
+
+  public Vector3D subtract3DCoordinate(Coordinate c) {
     return new Vector3D(this.x() - c.x(), this.y() - c.y(), this.z() - c.z());
   }
 
-  public Vector2D subtractVector2D(Coordinate c) {
+  public Vector2D subtract2DCoordinate(Coordinate c) {
     return new Vector2D(this.x() - c.x(), this.y() - c.y());
   }
 
-  public Vector subtractVector(Coordinate c) {
+  public Vector subtractCoordinate(Coordinate c) {
     double[] a = new double[this.coordinates.length];
     for (int i = 0; i < this.coordinates.length; i++) {
       a[i] = this.get(i) - c.get(i);
@@ -39,7 +49,7 @@ public class Coordinate {
   }
 
   public double get(int i) {
-    return get(i);
+    return this.coordinates[i];
   }
 
   public String toString() {
