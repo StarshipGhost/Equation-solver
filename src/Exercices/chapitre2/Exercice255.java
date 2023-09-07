@@ -23,5 +23,12 @@ public class Exercice255 {
             });
     System.out.println("========== Exercice 2.55 ==========");
     T.solve("AC", "BC");
+
+    AC.multiplyComponents(T.solve("AC", "BC").get("AC"));
+    BC.multiplyComponents(T.solve("AC", "BC").get("BC"));
+
+    System.out.println("========== Tension AB et BC ==========");
+    System.out.println("AC = " + AC.norm());
+    System.out.println("BC = " + BC.norm());
   }
 }

@@ -20,7 +20,9 @@ public class Exercice271 {
     this.F1 = new Vector3D(F1.x(), F1.y(), F1.z());
     System.out.println("F1 = " + F1);
     Utils.printFormattedDoubleArray(F1.angles(), 1);
+
     System.out.println("------------------------------");
+
     this.F2 = new Vector3D(NORM_F2, YZ_ANGLE_F2, XZ_ANGLE_F2, false, true);
     this.F2 = new Vector3D(-F2.x(), F2.y(), F2.z());
     System.out.println("F2 = " + F2);
