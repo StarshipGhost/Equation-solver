@@ -1,6 +1,9 @@
 package utils;
 
+import com.sun.corba.se.spi.orbutil.threadpool.NoSuchThreadPoolException;
+
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class Matrix {
 
@@ -84,24 +87,41 @@ public class Matrix {
     return determinant;
   }
 
+  public double[] extractColumn(int j) {
+    double[] a = new double[lines()];
+    for (int i = 0; i < lines(); i++) {
+      a[i] = this.matrix[i][j];
+    }
+    return a;
+  }
+
+  public double[] extractLine(int i) {
+    double[][] a = matrix;
+    return a[i];
+  }
+
+  public int columnArgmax(int j) {
+    double[] column = extractColumn(j);
+    return IntStream.range(0, column.length)
+        .reduce(
+            0,
+            (argmax, currentIndex) ->
+                column[currentIndex] > column[argmax] ? currentIndex : argmax);
+  }
+
   public Matrix gaussianElimination() {
 
     int m = lines();
     int n = columns();
 
-    Matrix L = identite(lines());
+    Matrix L = identite(m);
     Matrix U = copy();
 
-    int bound;
-    if (lines() > columns()) {
-      bound = n;
-    } else {
-      bound = m;
-    }
+    int bound = Math.min(n, m);
     for (int index_pivot = 0; index_pivot < bound; index_pivot++) {
       if (U.get(index_pivot, index_pivot) == 0) {
         int r;
-        for (r = index_pivot + 1; r < U.lines() && U.get(index_pivot, index_pivot) == 0; r++) {
+        for (r = index_pivot + 1; r < m && U.get(index_pivot, index_pivot) == 0; r++) {
           U.permuteLines(index_pivot, r);
         }
       }
@@ -115,10 +135,43 @@ public class Matrix {
           }
         }
       }
-//      System.out.println("-----------------");
-//      U.printMatrix();
     }
+//    System.out.println("------------------");
+//    U.printMatrix();
     return U;
+  }
+
+  public Matrix[] LUP() {
+
+    int m = lines();
+    int n = columns();
+
+    Matrix P = identite(m);
+    Matrix L = identite(m);
+    Matrix U = copy();
+
+    for (int j = 0; j < n - 1; j++) {
+      int iMax = columnArgmax(j);
+
+      P.permuteLines(j, iMax);
+      L.permuteLines(j, iMax);
+      L.permuteColumns(j, iMax);
+      U.permuteLines(j, iMax);
+
+      for (int i = j + 1; i < m; i++) {
+        double eliminationFactor = U.get(i, j) / U.get(i, i);
+        L.set(i, j, eliminationFactor);
+        for (int k = 0; k < n; k++) {
+          U.set(i, k, U.get(i, k) - eliminationFactor * U.get(j, k));
+        }
+      }
+    }
+    L.printMatrix();
+    System.out.println("------------------");
+    U.printMatrix();
+    System.out.println("------------------");
+    P.printMatrix();
+    return new Matrix[] {L, U, P};
   }
 
   public Map<String, Double> solve(String... variables) {
@@ -140,8 +193,7 @@ public class Matrix {
       equations.put(variables[i], equation[i]);
       subtitutionResult = 0;
     }
-    System.out.println(equations);
-
+    //System.out.println(equations);
     return equations;
   }
 
