@@ -45,6 +45,7 @@ public class Exercice4138 {
     System.out.println("DF = " + DF);
     System.out.println("W = " + W);
 
+    System.out.println("========== Vecteurs position ==========");
     System.out.println("r_AF = " + r_AF);
     System.out.println("r_AB = " + r_AB);
     System.out.println("r_AE = " + r_AE);
@@ -66,8 +67,12 @@ public class Exercice4138 {
     System.out.println("r_AE = " + r_AE);
 
     System.out.println("========== Moments de force ==========");
+
+    System.out.println("========== Au point A ==========");
     System.out.println("M_AF = " + M_AF);
     System.out.println("M_AB = " + M_AB);
+
+    System.out.println("========== Au point E ==========");
     System.out.println("M_EF = " + M_EF);
     System.out.println("M_EB = " + M_EB);
 
@@ -78,6 +83,7 @@ public class Exercice4138 {
 //    this.T = new Matrix(new double[][] {{M_AF.z(), -M_AB.z()}});
 //    double T_DF = T.solve("T_DF").get("T_DF");
 
+    System.out.println("========== Tension DF ==========");
     double T_DF = DF.getForceFromMomentOfForceAboutAnAxis(r_AE, M_AB, r_AF);
     System.out.println("T_DF = " + T_DF);
   }

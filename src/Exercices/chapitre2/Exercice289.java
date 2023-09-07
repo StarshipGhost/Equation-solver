@@ -23,6 +23,7 @@ public class Exercice289 {
 
     this.DB = B.subtract3DCoordinate(D);
     this.EB = B.subtract3DCoordinate(E);
+
     System.out.println("========== Vecteurs ==========");
     System.out.println("DB = " + DB);
     System.out.println("EB = " + EB);

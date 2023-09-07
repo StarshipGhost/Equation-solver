@@ -46,10 +46,10 @@ public class Exercice4139 {
     System.out.println("CF = " + CF);
     System.out.println("W = " + W);
 
+    System.out.println("========== Vecteurs posiiton ==========");
     System.out.println("r_AF = " + r_AF);
     System.out.println("r_AB = " + r_AB);
     System.out.println("r_AE = " + r_AE);
-
     System.out.println("r_EF = " + r_EF);
     System.out.println("r_EB = " + r_EB);
     System.out.println("r_EA = " + r_EA);
@@ -67,12 +67,17 @@ public class Exercice4139 {
     System.out.println("r_AE = " + r_AE);
 
     System.out.println("========== Moments de force ==========");
+
+    System.out.println("========== Au point A ==========");
     System.out.println("M_AF = " + M_AF);
     System.out.println("M_AB = " + M_AB);
+
+    System.out.println("========== Au point E ==========");
     System.out.println("M_EF = " + M_EF);
     System.out.println("M_EB = " + M_EB);
 
-   double normCF = CF.getForceFromMomentOfForceAboutAnAxis(r_AE, M_AB, r_AF);
+    System.out.println("========== Tension CF ==========");
+    double normCF = CF.getForceFromMomentOfForceAboutAnAxis(r_AE, M_AB, r_AF);
     System.out.println("T_CF = " + normCF);
   }
 }

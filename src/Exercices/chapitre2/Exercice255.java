@@ -21,6 +21,7 @@ public class Exercice255 {
             new double[][] {
               {AC.x(), BC.x(), -(P.x() + Q.x())}, {AC.y(), BC.y(), -(P.y() + Q.y())}
             });
+    System.out.println("========== Exercice 2.55 ==========");
     T.solve("AC", "BC");
   }
 }

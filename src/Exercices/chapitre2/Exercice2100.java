@@ -54,6 +54,6 @@ public class Exercice2100 {
     System.out.println("OA = " + OA);
 
     System.out.println("========== Système d'équations ==========");
-    T.solve("P", "AD", "AB");
+    T.solve("AB", "AD", "P");
   }
 }
