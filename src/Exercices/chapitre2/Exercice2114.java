@@ -10,7 +10,6 @@ public class Exercice2114 {
   public Exercice2114() {
 
     System.out.println("========== Exercice 2.114 ==========");
-    double x = Math.PI / 180;
     this.T = new Matrix(new double[][]{{-sin(50), cos(40), cos(60), 0},
                                      {1, 1, 1, 692.8},
                                      {cos(50), sin(40), -sin(60), 0}});

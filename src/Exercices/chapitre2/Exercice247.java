@@ -23,6 +23,7 @@ public class Exercice247 {
     System.out.println("AngleBC = " + angleBC);
     System.out.println("AngleCD = " + angleCD);
 
+
     System.out.println(90 - 22.6);
     System.out.println(30.5 - 22.6);
 

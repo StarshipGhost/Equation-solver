@@ -4,7 +4,7 @@ public class Exercice2107 {
 
   private final double T_AD = 305;
   private Coordinate A, B, C, D;
-  private Vector3D AB, AC, AD;
+  private Vector3D AB, AC, AD, P;
   private Matrix T;
 
 
@@ -17,6 +17,7 @@ public class Exercice2107 {
     this.AB = B.subtract3DCoordinate(A);
     this.AC = C.subtract3DCoordinate(A);
     this.AD = D.subtract3DCoordinate(A);
+    this.P = new Vector3D(1, 0, 0);
 
     System.out.println("========== Exercice 2.107 ==========");
     System.out.println("========== Coordonnées ==========");
@@ -33,9 +34,9 @@ public class Exercice2107 {
     AB.unitVector();
     AC.unitVector();
     AD.unitVector();
-    this.T = new Matrix(new double[][]{{AB.x(), AC.x(), 1, -(T_AD * AD.x())},
-                                       {AB.y(), AC.y(), 0, -(T_AD * AD.y())},
-                                       {AB.z(), AC.z(), 0, -(T_AD * AD.z())}});
+    this.T = new Matrix(new double[][]{{AB.x(), AC.x(), P.x(), -(T_AD * AD.x())},
+                                       {AB.y(), AC.y(), P.y(), -(T_AD * AD.y())},
+                                       {AB.z(), AC.z(), P.z(), -(T_AD * AD.z())}});
 
     System.out.println("========== Vecteurs unitaire ==========");
     System.out.println("AB = " + AB);
